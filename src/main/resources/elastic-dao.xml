@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:elasticsearch="http://www.springframework.org/schema/data/elasticsearch"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/elasticsearch
+        http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch.xsd http://www.springframework.org/schema/task
+            http://www.springframework.org/schema/task/spring-task.xsd">
+	<context:annotation-config />
+	<elasticsearch:repositories base-package="com.radha.sample.elastic.respository" />
+	<elasticsearch:transport-client id="client"
+		cluster-nodes="localhost:9300" <!-- if you want to use custom cluster name change in elastic.yml 
+			cluster-name="radha" -->
+		/>
+		<bean name="elasticsearchTemplate"
+			class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
+			<constructor-arg name="client" ref="client" />
+		</bean>
+</beans>
